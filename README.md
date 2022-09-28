@@ -101,3 +101,12 @@ catch(HTTP_Request2_Exception $e) {
 echo 'Error: ' . $e->getMessage();
 }
 ```
+### java unirest
+```
+Unirest.setTimeouts(0, 0);
+HttpResponse<String> response = Unirest.post("https://url_api/api/buy_trees")
+.header("Authorization", "Bearer testBeared")
+.header("Content-Type", "application/json")
+.body("{\n    \"quantity\": 1\n}")
+.asString();
+```
