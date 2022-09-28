@@ -17,7 +17,7 @@ API Payment enables a client to automatically order trees based on conditions th
 
 All API requests require the use of a generated API key. You can find your API key, or generate a new one clicking the “Settings -> API Payments” sidebar item.
 
-To authenticate an API request, you should provide your API key in the `Authorization: Bearer : tokenGeneratedInSettings` header.
+To authenticate an API request, you should provide your API key in the `Authorization: Bearer tokenGeneratedInSettings` header.
 
 
 ## Methods
