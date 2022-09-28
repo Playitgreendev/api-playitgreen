@@ -35,7 +35,7 @@ POST /api/buy_trees
 
 #### Response
 
-Many API endpoints return the JSON representation of the resources created or edited. However, if an invalid request is submitted, or some other error occurs, Playitgreen returns a JSON response in the following format:
+Playitgreen returns a success JSON response in the following format
 
 ```javascript
 {
