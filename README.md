@@ -19,40 +19,43 @@ All API requests require the use of a generated API key. You can find your API k
 
 To authenticate an API request, you should provide your API key in the `Authorization: Bearer : tokenGeneratedInSettings` header.
 
+
+## Methods
+### Buy trees
+
 ```http
-GET /api/campaigns/?api_key=12345678901234567890123456789012
+POST /api/buy_trees
 ```
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `api_key` | `string` | **Required**. Your Gophish API key |
+#### Request
 
-## Responses
+| Parameter | Type     | Description                                |
+| :--- |:---------|:-------------------------------------------|
+| `quantity` | `number` | **Required**. Number of Trees you want buy |
+
+#### Response
 
 Many API endpoints return the JSON representation of the resources created or edited. However, if an invalid request is submitted, or some other error occurs, Gophish returns a JSON response in the following format:
 
 ```javascript
 {
-  "message" : string,
-  "success" : bool,
-  "data"    : string
+  "orderId" : number,
+  "productInOrderId" : number
 }
 ```
 
-The `message` attribute contains a message commonly used to indicate errors or, in the case of deleting a resource, success that the resource was properly deleted.
+The `orderId` attribute describe order id. Order id is the same within the billing month. 
 
-The `success` attribute describes if the transaction was successful or not.
+The `productInOrderId` attribute describe product id in order. Usefful if you want find concreate sub order. 
 
-The `data` attribute contains any other metadata associated with the response. This will be an escaped string containing JSON data.
 
 ## Status Codes
 
-Gophish returns the following status codes in its API:
+Playitgreen returns the following status codes in its API:
 
 | Status Code | Description |
 | :--- | :--- |
 | 200 | `OK` |
-| 201 | `CREATED` |
 | 400 | `BAD REQUEST` |
 | 404 | `NOT FOUND` |
 | 500 | `INTERNAL SERVER ERROR` |
@@ -61,3 +64,40 @@ Gophish returns the following status codes in its API:
 ## Examples of code
 
 
+### curl 
+```
+curl --location --request POST 'https://url_api/api/buy_trees' \
+--header 'Authorization: Bearer testBeared' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"quantity": 1
+}'
+```
+### php
+```
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://url_api/api/buy_trees');
+$request->setMethod(HTTP_Request2::METHOD_POST);
+$request->setConfig(array(
+'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+'Authorization' => 'Bearer testBeared',
+'Content-Type' => 'application/json'
+));
+$request->setBody('{\n    "quantity": 1\n}');
+try {
+$response = $request->send();
+if ($response->getStatus() == 200) {
+echo $response->getBody();
+}
+else {
+echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+$response->getReasonPhrase();
+}
+}
+catch(HTTP_Request2_Exception $e) {
+echo 'Error: ' . $e->getMessage();
+}
+```
