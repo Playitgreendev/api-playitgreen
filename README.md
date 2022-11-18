@@ -21,6 +21,32 @@ To authenticate an API request, you should provide your API key in the `Authoriz
 
 
 ## Methods
+### Products type
+
+| Product Code     | Description       |
+|:-----------------|:------------------|
+| `PLAY1TREEAPI`   | 1 Trees Planted   |
+| `PLAY2TREEAPI`   | 2 Trees Planted   |
+| `PLAY3TREEAPI`   | 3 Trees Planted   |
+| `PLAY4TREEAPI`   | 4 Trees Planted   |
+| `PLAY5TREEAPI`   | 5 Trees Planted   |
+| `PLAY6TREEAPI`   | 6 Trees Planted   |
+| `PLAY7TREEAPI`   | 7 Trees Planted   |
+| `PLAY8TREEAPI`   | 8 Trees Planted   |
+| `PLAY9TREEAPI`   | 9 Trees Planted   |
+| `PLAY10TREEAPI`  | 10 Trees Planted  |
+| `PLAY50TREEAPI`  | 50 Trees Planted  |
+| `PLAY100TREEAPI` | 100 Trees Planted |
+| `PLAY150TREEAPI` | 150 Trees Planted |
+| `PLAY200TREEAPI` | 200 Trees Planted |
+| `PLAY250TREEAPI` | 250 Trees Planted |
+| `PLAY300TREEAPI` | 300 Trees Planted |
+| `PLAY350TREEAPI` | 350 Trees Planted |
+| `PLAY400TREEAPI` | 400 Trees Planted |
+| `PLAY450TREEAPI` | 450 Trees Planted |
+| `PLAY500TREEAPI` | 500 Trees Planted |
+
+
 ### Buy trees
 
 ```http
@@ -29,9 +55,11 @@ POST /api/buy_trees
 
 #### Request
 
-| Parameter | Type     | Description                                |
-| :--- |:---------|:-------------------------------------------|
-| `quantity` | `number` | **Required**. Number of Trees you want buy |
+| Parameter     | Type     | Description                                 |
+|:--------------|:---------|:--------------------------------------------|
+| `quantity`    | `number` | **Required**. Number of Trees you want buy  |
+| `productCode` | `string` | **Required**. Specify the product code      |
+| `referenceNo` | `string` | **Required**. Provide reference number      |
 
 #### Response
 
@@ -53,12 +81,12 @@ The `productInOrderId` attribute describe product id in order. Usefful if you wa
 
 Playitgreen returns the following status codes in its API:
 
-| Status Code | Description |
-| :--- | :--- |
-| 200 | `OK` |
-| 400 | `BAD REQUEST` |
-| 404 | `NOT FOUND` |
-| 500 | `INTERNAL SERVER ERROR` |
+| Status Code | Description             |
+|:------------|:------------------------|
+| 200         | `OK`                    |
+| 400         | `BAD REQUEST`           |
+| 404         | `NOT FOUND`             |
+| 500         | `INTERNAL SERVER ERROR` |
 
 
 ## Examples of code
@@ -70,7 +98,9 @@ curl --location --request POST 'https://url_api/api/buy_trees' \
 --header 'Authorization: Bearer testBeared' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-"quantity": 1
+"quantity": 1, 
+"productCode":"PLAY1TREEAPI",
+"referenceNo":"X12345"
 }'
 ```
 ### php
@@ -86,7 +116,7 @@ $request->setHeader(array(
 'Authorization' => 'Bearer testBeared',
 'Content-Type' => 'application/json'
 ));
-$request->setBody('{\n    "quantity": 1\n}');
+$request->setBody('{\n	"quantity":1,\n"productCode":"PLAY1TREEAPI",\n"referenceNo":"X12345"\n}');
 try {
 $response = $request->send();
 if ($response->getStatus() == 200) {
@@ -107,6 +137,6 @@ Unirest.setTimeouts(0, 0);
 HttpResponse<String> response = Unirest.post("https://url_api/api/buy_trees")
 .header("Authorization", "Bearer testBeared")
 .header("Content-Type", "application/json")
-.body("{\n    \"quantity\": 1\n}")
+.body("{\n    \"quantity\": 1, \"productCode\":\"PLAY1TREEAPI\", \"referenceNo\":\"X12345\" \n}")
 .asString();
 ```
